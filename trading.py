@@ -12,11 +12,21 @@ def create_entry():
     click.echo('Here is your journal summery')
     journal.create_journal_entry()
 
-@cli.command()
+@cli.group()
 def migrate():
+    """Commands for database matiance"""
+    pass
+
+@migrate.command()
+def apply():
     """Apply outstanding database migrations"""
     click.echo('Applying outstanding database migrations')
     migrater.apply_outstanding_migrations()
+
+@migrate.command()
+def wipe():
+    """Wipe database file"""
+    migrater.wipe_db()
 
 
 # @cli.command()
