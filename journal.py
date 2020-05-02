@@ -1,9 +1,6 @@
-import click
 import sqlite3
 
-@click.command()
-
-def journal():
+def create_journal_entry():
     instrument = input("The product ISIN is: ")
     date = input("Date of the trade: ")
     position_size = float(input("Position size of the trade: "))
@@ -51,5 +48,5 @@ def journal():
             print("The SQLite connection is closed")
 
 
-if __name__ == '__main__':
-    journal()
+# def list_entries(journal_id):
+#     print(f"all my trading entries in journal {journal_id}")
