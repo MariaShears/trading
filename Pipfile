@@ -9,6 +9,8 @@ pylint = "*"
 [packages]
 click = "*"
 pandas = "*"
+yoyo-migrations = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"

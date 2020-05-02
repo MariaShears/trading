@@ -1,5 +1,6 @@
 import click
 import journal
+import migrater
 
 @click.group()
 def cli():
@@ -10,6 +11,12 @@ def create_entry():
     """Create a trading journal entry"""
     click.echo('Here is your journal summery')
     journal.create_journal_entry()
+
+@cli.command()
+def migrate():
+    """Apply outstanding database migrations"""
+    click.echo('Applying outstanding database migrations')
+    migrater.apply_outstanding_migrations()
 
 
 # @cli.command()
