@@ -1,1 +1,2 @@
-db_name: traders_journal.sqlite
+database:
+  file: traders_journal.sqlite

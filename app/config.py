@@ -1,4 +1,3 @@
-import pprint
 import yaml
 
 class __Config:
@@ -10,6 +9,6 @@ class __Config:
 
     @property
     def db_table_name(self):
-        return self._global_config.get('db_name', 'default.sqlite')
+        return self._global_config.get('database', {}).get('file', 'default.sqlite')
     
 c = __Config()
