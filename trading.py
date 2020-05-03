@@ -1,6 +1,6 @@
 import click
-import journal
-import migrater
+
+from app import journal, migrater
 
 @click.group()
 def cli():
