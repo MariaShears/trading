@@ -1,5 +1,7 @@
 import sqlite3
 
+from app.config import c
+
 def create_journal_entry():
     instrument = input("The product ISIN is: ")
     date = input("Date of the trade: ")
@@ -31,7 +33,7 @@ def create_journal_entry():
     trade_profit = position_size * (target_price - bid_price)
 
     try:
-        sqliteConnection = sqlite3.connect('traders_journal.db')
+        sqliteConnection = sqlite3.connect(c.db_table_name)
         cursor = sqliteConnection.cursor()
         variables = (instrument, date, buying_sum, position_size, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, target_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment,)
         sql = '''INSERT INTO journal(instrument, date, buying_sum, position_size, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, target_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''

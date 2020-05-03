@@ -5,10 +5,13 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+autopep8 = "*"
 
 [packages]
 click = "*"
 pandas = "*"
+yoyo-migrations = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"
