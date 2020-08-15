@@ -29,33 +29,10 @@ def new_stock_entry(name, buying_sum, buying_date, entry_signal, exit_signal, co
     session.commit()
 
 
-
-
-# @cli.command()
-# @click.option('--instrument', prompt=True,
-#             help='The instrument used for trade [stock|KO]'
-#             )
-# def create_entry(instrument):
-#     """Create a trading journal entry"""
-#     if instrument == 'stock':
-#         journal.create_journal_entry_stock()
-#     elif instrument == 'KO':
-#         journal.create_journal_entry_KO()
-
-#     else: 
-#         click.echo('Invalid input, Try "trading --help" for help.')
-
-
 @cli.group()
 def migrate():
     """Commands for database matiance"""
     pass
-
-@migrate.command()
-def apply():
-    """Apply outstanding database migrations"""
-    click.echo('Applying outstanding database migrations')
-    migrater.apply_outstanding_migrations()
 
 @migrate.command()
 def wipe():

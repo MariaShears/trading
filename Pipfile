@@ -15,6 +15,7 @@ pyyaml = "*"
 requests = "*"
 yahoo-finance = "*"
 sqlalchemy = "*"
+alembic = "*"
 
 [requires]
 python_version = "3.7"

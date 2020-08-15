@@ -16,12 +16,6 @@ class Stock(Base):
     def __repr__(self):
        return f"<Stock name='{self.name}'>"
 
-Base.metadata.create_all(_engine)
-
-
-
-# fullname = Column(String)
-# nickname = Column(String)
 # buy_date
 # sell_date
 # buying_sum
