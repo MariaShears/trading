@@ -12,6 +12,8 @@ click = "*"
 pandas = "*"
 yoyo-migrations = "*"
 pyyaml = "*"
+requests = "*"
+yahoo-finance = "*"
 
 [requires]
 python_version = "3.7"
