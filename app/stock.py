@@ -2,7 +2,7 @@ import datetime
 from sqlalchemy import Column, Float, Integer, String, Date
 from .db import Base, _engine
 
-def get_number_from_cli(description):
+def _get_number_from_cli(description):
     """Gets a number from the command line defaulting to 0"""
     num = None
     while num is None:
@@ -16,13 +16,13 @@ def create_stock_from_cli():
     instrument = input("The product ISIN/WKN is: ") or "n/a"
     buy_date = input("Date trade entered ex[01.01.1993]: " ) or "n/a"
     sell_date = input("Date trade closed ex[01.01.1993]: " ) or "n/a"
-    position_size = get_number_from_cli('Position size of the trade')
-    comission = get_number_from_cli('Overall comission charged by broker')
-    exchange_rate = get_number_from_cli('Excahge rate used by broker')
-    entry_price = get_number_from_cli("Your product's entry price")
-    target_price = get_number_from_cli('Target price of the product')
-    bid_price = get_number_from_cli('Bid price of the product')
-    atr = get_number_from_cli('ATR of the product at entry time')
+    position_size = _get_number_from_cli('Position size of the trade')
+    comission = _get_number_from_cli('Overall comission charged by broker')
+    exchange_rate = _get_number_from_cli('Excahge rate used by broker')
+    entry_price = _get_number_from_cli("Your product's entry price")
+    target_price = _get_number_from_cli('Target price of the product')
+    bid_price = _get_number_from_cli('Bid price of the product')
+    atr = _get_number_from_cli('ATR of the product at entry time')
     entry_signal = input("Signal for trade entry: ") or "n/a"
     exit_signal = input("Signal for trade exit: ") or "n/a"
     comment = input("Comment on the success/failure of the trade: ") or "n/a"
