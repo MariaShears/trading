@@ -4,13 +4,13 @@ from yoyo import read_migrations, get_backend
 
 from app.config import c
 
-backend = get_backend('sqlite:///{}'.format(c.db_table_name))
+backend = get_backend('sqlite:///{}'.format(c.db_name))
 migrations = read_migrations('migrations')
 
 def wipe_db():
     """Deletes the sqlite db file"""
-    if os.path.exists(c.db_table_name):
-        os.remove(c.db_table_name)
+    if os.path.exists(c.db_name):
+        os.remove(c.db_name)
 
 def apply_outstanding_migrations():
     """Apply any outstanding migrations"""

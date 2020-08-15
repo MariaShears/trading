@@ -8,7 +8,7 @@ class __Config:
         return yaml.safe_load(open("config.yml"))
 
     @property
-    def db_table_name(self):
+    def db_name(self):
         return self._global_config.get('database', {}).get('file', 'default.sqlite')
     
 c = __Config()
