@@ -2,7 +2,7 @@ import click
 import datetime
 
 from app import migrater
-from app.stock import Stock
+from app.stock import create_stock_from_cli
 from app.db import session
 
 @click.group()
@@ -10,21 +10,8 @@ def cli():
     pass
 
 @cli.command()
-@click.option('--name', prompt=True, type=str, required=True)
-@click.option('--buying_sum', prompt=True, type=float, required=True)
-@click.option('--buying_date', prompt="Buying Date ex:[01.01.1993]", type=str, required=True)
-@click.option('--entry_signal', prompt=True, type=str, required=True)
-@click.option('--exit_signal', prompt=True, type=str, required=True)
-@click.option('--comment', prompt=True, type=str)
-def new_stock_entry(name, buying_sum, buying_date, entry_signal, exit_signal, comment):
-    new_stock = Stock(
-        name = name,
-        buying_sum = buying_sum,
-        entry_signal = entry_signal,
-        exit_signal = exit_signal,
-        buying_date = datetime.datetime.strptime(buying_date, '%d.%m.%Y'),
-        comment = comment
-    )
+def new_stock_entry():
+    new_stock = create_stock_from_cli()
     session.add(new_stock)
     session.commit()
 
