@@ -42,6 +42,17 @@ $ (trading) python trading.py migrate wipe
 
 You can read more on the [alembic docs](https://alembic.sqlalchemy.org/en/latest/tutorial.html#creating-an-environment)
 
+## Unit Testing
+
+Run tests with:
+```shell
+$ pytest
+```
+
+docs on creating tests [here](https://docs.pytest.org/en/latest/getting-started.html)
+
 ## Dev Links
 
 - [SQL Lite ORM SQL Alchemy](https://docs.sqlalchemy.org/en/13/orm/tutorial.html#version-check)
+
+

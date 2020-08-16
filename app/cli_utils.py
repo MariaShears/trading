@@ -14,13 +14,15 @@ def get_number_from_cli(description):
 def get_optional_string_from_cli(description):
     return input(f"{description}: ") or "n/a"
 
+def _validate_date(txt):
+    return re.match(r"^\d{2}\.\d{2}\.\d{4}$", txt) != None
+
 def get_date_from_cli(description):
     date = None
     while date is None:
         try:
             date_txt = input(f"{description}, ex[01.01.1993]: ") or ""
-            is_date = re.match(r"^\d{2}\.\d{2}\.\d{4}$", date_txt)
-            if is_date:
+            if _validate_date(date_txt):
                 date = datetime.datetime.strptime(date_txt, '%d.%m.%Y')
             else:
                 raise Exception("invalid date") 
