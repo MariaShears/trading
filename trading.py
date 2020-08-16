@@ -3,7 +3,9 @@ import datetime
 
 from app import migrater
 from app.instruments.create import create_stock_from_cli
+from app.instruments.get import get_instrments
 from app.db import session
+from app import statistics
 
 @click.group()
 def cli():
@@ -18,7 +20,7 @@ def new_stock_entry():
 
 @cli.group()
 def migrate():
-    """Commands for database matiance"""
+    """Commands for database maintenance"""
     pass
 
 @migrate.command()
@@ -32,11 +34,24 @@ def wipe():
 #     click.echo('Here are your trade parameters')
 #     risk.calculate_trade_parameters()
 
+@cli.group()
+def stats():
+    """Commands for getting stats about trading performance"""
+    pass
+
+@stats.command()
+def summ():
+    """Return summ of trade profits by period"""
+    instruments = get_instrments(session)
+    profit = statistics.calculate_profit(instruments)
+    print(f"Your overall profit is: {profit}")
+
 # @cli.command()
 # def return_stock():
 #     """Retrieves a list of wished stocks"""
 #     click.echo('Here is the list of stocks')
 #     find_stock.get_data()
+
 
 # @cli.command()
 # @click.option('--journal-id')
