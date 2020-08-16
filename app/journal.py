@@ -1,13 +1,13 @@
 import sqlite3
 from datetime import date
-from dateutil.parser import parse
+from dateutil.parser import *
 
 from app.config import c
 
 def create_journal_entry_KO():
     instrument = input("The product ISIN/WKN is: ") or "n/a"
-    buy_date = parse(input("Date trade entered: " ) or "n/a").date()
-    sell_date = parse(input("Date trade closed: ") or "n/a").date()
+    buy_date = input("Date trade entered: ") or "n/a"
+    sell_date = input("Date trade closed: ") or "n/a"
     position_size = None
     while position_size is None:
         try:
@@ -106,7 +106,7 @@ def create_journal_entry_KO():
         sqliteConnection = sqlite3.connect(c.db_table_name)
         cursor = sqliteConnection.cursor()
         variables_KO = (instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment)
-        sql_KO = '''INSERT INTO journal(instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,date(?),date(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        sql_KO = '''INSERT INTO journal(instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
         cursor.execute(sql_KO, variables_KO)
         sqliteConnection.commit()
         count = cursor.rowcount
@@ -122,7 +122,7 @@ def create_journal_entry_KO():
 def create_journal_entry_stock():
     instrument = input("The product ISIN/WKN is: ") or "n/a"
     buy_date = parse(input("Date trade entered: " ) or "n/a").date()
-    sell_date = parse(input("Date trade closed: " ) or "n/a").date()
+    sell_date = input("Date trade closed: " ) or "n/a"
     position_size = None
     while position_size is None:
         try:
