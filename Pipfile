@@ -10,7 +10,6 @@ autopep8 = "*"
 [packages]
 click = "*"
 pandas = "*"
-yoyo-migrations = "*"
 pyyaml = "*"
 requests = "*"
 yahoo-finance = "*"

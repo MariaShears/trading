@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0f1231652e76fe9daeac8e454f63fe6ec084717faa18f17888666079f4f4a77a"
+            "sha256": "3707f16027553ff37cd5727e215b965c107d01b1f513a95beb51d142e851aa3b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -297,21 +297,6 @@
             "index": "pypi",
             "version": "==1.3.18"
         },
-        "sqlparse": {
-            "hashes": [
-                "sha256:022fb9c87b524d1f7862b3037e541f68597a730a8843245c349fc93e1643dc4e",
-                "sha256:e162203737712307dfe78860cc56c8da8a852ab2ee33750e33aeadf38d12c548"
-            ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==0.3.1"
-        },
-        "tabulate": {
-            "hashes": [
-                "sha256:ac64cb76d53b1231d364babcd72abbb16855adac7de6665122f97b593f1eb2ba",
-                "sha256:db2723a20d04bcda8522165c73eea7c300eda74e0ce852d9022e0159d7895007"
-            ],
-            "version": "==0.8.7"
-        },
         "urllib3": {
             "hashes": [
                 "sha256:91056c15fa70756691db97756772bb1eb9678fa585d9184f24534b100dc60f4a",
@@ -326,14 +311,6 @@
             ],
             "index": "pypi",
             "version": "==1.4.0"
-        },
-        "yoyo-migrations": {
-            "hashes": [
-                "sha256:a54f6176ff6da3330be537c962235aaa9e5f7f2aae563b1c531b1cb616d80359",
-                "sha256:d6e0e32054d81b27278f465e719e39c658e14decd62fd71d34f50e0772f80755"
-            ],
-            "index": "pypi",
-            "version": "==7.2.0"
         }
     },
     "develop": {
