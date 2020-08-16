@@ -39,3 +39,9 @@ If something gets messed up you can always wipe the database with:
 ```shell
 $ (trading) python trading.py migrate wipe
 ```
+
+You can read more on the [alembic docs](https://alembic.sqlalchemy.org/en/latest/tutorial.html#creating-an-environment)
+
+## Dev Links
+
+- [SQL Lite ORM SQL Alchemy](https://docs.sqlalchemy.org/en/13/orm/tutorial.html#version-check)
