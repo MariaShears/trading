@@ -2,7 +2,7 @@ import click
 import datetime
 
 from app import migrater
-from app.stock import create_stock_from_cli
+from app.instruments.create import create_stock_from_cli
 from app.db import session
 
 @click.group()
