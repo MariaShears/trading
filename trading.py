@@ -3,6 +3,7 @@ import datetime
 
 from app import migrater
 from app.instruments.create import create_stock_from_cli
+from app.instruments.get import get_instrments
 from app.db import session
 from app import statistics
 
@@ -41,8 +42,9 @@ def stats():
 @stats.command()
 def summ():
     """Return summ of trade profits by period"""
-    statistics.profits_summ()
-
+    instruments = get_instrments(session)
+    profit = statistics.calculate_profit(instruments)
+    print(f"Your overall profit is: {profit}")
 
 # @cli.command()
 # def return_stock():
