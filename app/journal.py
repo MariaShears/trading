@@ -1,13 +1,11 @@
 import sqlite3
-from datetime import date
-from dateutil.parser import parse
 
 from app.config import c
 
 def create_journal_entry_KO():
     instrument = input("The product ISIN/WKN is: ") or "n/a"
-    buy_date = parse(input("Date trade entered: " ) or "n/a").date()
-    sell_date = parse(input("Date trade closed: ") or "n/a").date()
+    buy_date = input("Date trade entered: ") or "n/a"
+    sell_date = input("Date trade closed: ") or "n/a"
     position_size = None
     while position_size is None:
         try:
@@ -17,7 +15,7 @@ def create_journal_entry_KO():
     comission = None
     while comission is None:
         try:
-            comission = float(input("Overall fees/tax charged by broker: ") or 0)
+            comission = float(input("Overall comission charged by broker: ") or 0)
         except Exception:
             print("Comission should be a number")
     exchange_rate = None
@@ -89,12 +87,7 @@ def create_journal_entry_KO():
     # calculate risk per stock
     risk_per_stock = entry_price - initial_stop
     # calculate risk/reward ratio
-    risk_reward_ratio = None
-    while risk_reward_ratio is None:
-        try:
-            risk_reward_ratio = risk_per_stock/(target_price - entry_price)
-        except ZeroDivisionError:
-            risk_reward_ratio = 0
+    risk_reward_ratio = risk_per_stock/(target_price - entry_price)
     # calculate buying sum
     buying_sum = position_size * entry_price
     # calculate buying sum with comission
@@ -106,7 +99,7 @@ def create_journal_entry_KO():
         sqliteConnection = sqlite3.connect(c.db_table_name)
         cursor = sqliteConnection.cursor()
         variables_KO = (instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment)
-        sql_KO = '''INSERT INTO journal(instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,date(?),date(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        sql_KO = '''INSERT INTO journal(instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, subscription_ratio, knock_out, multiplicator, strike_price, entry_underlying_price, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
         cursor.execute(sql_KO, variables_KO)
         sqliteConnection.commit()
         count = cursor.rowcount
@@ -121,8 +114,8 @@ def create_journal_entry_KO():
 
 def create_journal_entry_stock():
     instrument = input("The product ISIN/WKN is: ") or "n/a"
-    buy_date = parse(input("Date trade entered: " ) or "n/a").date()
-    sell_date = parse(input("Date trade closed: " ) or "n/a").date()
+    buy_date = input("Date trade entered: " ) or "n/a"
+    sell_date = input("Date trade closed: " ) or "n/a"
     position_size = None
     while position_size is None:
         try:
@@ -132,7 +125,7 @@ def create_journal_entry_stock():
     comission = None
     while comission is None:
         try:
-            comission = float(input("Overall fees/tax charged by broker: ") or 0)
+            comission = float(input("Overall comission charged by broker: ") or 0)
         except Exception:
             print("Comission should be a number")
     exchange_rate = None
@@ -184,18 +177,16 @@ def create_journal_entry_stock():
     # calculate buying sum with comission
     buying_sum_comission = (position_size * entry_price) + comission
     # calculate profit of trade
-    trade_profit = None
-    while trade_profit is None:
-        try:
-            trade_profit = (position_size * ((bid_price - entry_price)/exchange_rate) - comission)
-        except ZeroDivisionError:
-            trade_profit = (position_size * (bid_price - entry_price) - comission)
+    if exchange_rate == 0:
+        trade_profit = (position_size * (bid_price - entry_price) - comission)
+    else:
+        trade_profit = (position_size * ((bid_price - entry_price)/exchange_rate) - comission)
 
     try:
         sqliteConnection = sqlite3.connect(c.db_table_name)
         cursor = sqliteConnection.cursor()
         variables_stock = (instrument, buy_date, sell_date, buying_sum, buying_sum_comission, exchange_rate, position_size, comission, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, initial_stop, risk_per_stock, entry_signal, exit_signal, comment)
-        sql_stock = '''INSERT INTO journal(instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, exchange_rate, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,date(?),date(?),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        sql_stock = '''INSERT INTO journal(instrument, buy_date, sell_date, buying_sum, buying_sum_comission, position_size, comission, exchange_rate, trade_profit, risk_reward_ratio, entry_price, target_price, bid_price, atr, initial_stop, risk_per_stock, entry_signal, exit_signal, comment) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
         cursor.execute(sql_stock, variables_stock)
         sqliteConnection.commit()
         count = cursor.rowcount
