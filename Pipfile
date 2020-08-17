@@ -15,6 +15,7 @@ requests = "*"
 yahoo-finance = "*"
 sqlalchemy = "*"
 alembic = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"
