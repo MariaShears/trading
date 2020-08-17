@@ -1,11 +1,28 @@
 from pprint import pprint
+import datetime
 
 
 def calculate_profit(instruments):
     total_profit = 0
     for instrument in instruments:
-        total_profit = total_profit + instrument.trade_profit
+        total_profit += instrument.trade_profit
     return total_profit
+
+#TODO check math, wrong result
+def calculate_profit_year(instruments):
+    total_profit_year = 0
+    for instrument in instruments:
+        if instrument.sell_date.year == datetime.date.today().year:
+            total_profit_year += total_profit_year + instrument.trade_profit
+    return total_profit_year, datetime.date.today().year, instrument.sell_date.year
+
+def calculate_profit_month(instruments):
+    total_profit_month = 0
+    for instrument in instruments:
+        if (instrument.sell_date.year == datetime.date.today().year and instrument.sell_date.month == datetime.date.today().month):
+            total_profit_month += total_profit_month + instrument.trade_profit
+    return total_profit_month
+
 
 
 # import sqlite3

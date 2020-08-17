@@ -40,11 +40,16 @@ def stats():
     pass
 
 @stats.command()
-def summ():
-    """Return summ of trade profits by period"""
+def sum():
+    """Return sum of trade profits by period"""
     instruments = get_instrments(session)
     profit = statistics.calculate_profit(instruments)
+    profit_year = statistics.calculate_profit_year(instruments)
+    profit_month = statistics.calculate_profit_month(instruments)
     print(f"Your overall profit is: {profit}")
+    print(f"Your profit this year is: {profit_year}")
+    print(f"Your profit this month is: {profit_month}")
+
 
 # @cli.command()
 # def return_stock():

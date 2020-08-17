@@ -11,7 +11,7 @@ def _caculate_risk_per_stock(entry_price, initial_stop):
 
 def _caculate_risk_reward_ratio(risk_per_stock, target_price, entry_price):
     try:
-        return risk_per_stock / (target_price - entry_price)
+        return round(risk_per_stock / (target_price - entry_price), 4)
     except ZeroDivisionError:
         return 0
 
@@ -22,12 +22,10 @@ def _caculate_buying_sum_comission(position_size, entry_price, comission):
     return (position_size * entry_price) + comission
 
 def _caculate_trade_profit(exchange_rate, position_size, bid_price, entry_price, comission):
-    if exchange_rate == 0:
-        return  (position_size * (bid_price - entry_price) - comission)
-    return (position_size * ((bid_price - entry_price)/exchange_rate) - comission)
-
-def _caculate_risk_per_stock(entry_price, initial_stop):
-    return entry_price - initial_stop
+    try: 
+        return round((position_size * ((bid_price - entry_price)/exchange_rate) - comission), 4)
+    except ZeroDivisionError:
+        return (position_size * (bid_price - entry_price) - comission)
 
 def create_stock_from_cli():
     instrument = get_optional_string_from_cli('The product ISIN/WKN is')
