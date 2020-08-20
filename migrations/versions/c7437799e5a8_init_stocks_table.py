@@ -1,8 +1,8 @@
 """init stocks table
 
-Revision ID: de15bb8a0f41
+Revision ID: c7437799e5a8
 Revises: 
-Create Date: 2020-08-15 15:22:48.267410
+Create Date: 2020-08-20 16:12:07.190830
 
 """
 from alembic import op
@@ -10,10 +10,11 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'de15bb8a0f41'
+revision = 'c7437799e5a8'
 down_revision = None
 branch_labels = None
 depends_on = None
+
 
 def upgrade():
     op.create_table(

@@ -3,13 +3,24 @@ import datetime
 
 from app import migrater
 from app.instruments.create import create_stock_from_cli
+from app.brokers.create_brokers import create_broker_from_cli
 from app.instruments.get import get_instrments
 from app.db import session
 from app import statistics
 
+
+
 @click.group()
 def cli():
     pass
+
+@cli.command()
+def new_broker_entry():
+    new_broker = create_broker_from_cli()
+    session.add(new_broker)
+    session.commit()
+
+
 
 @cli.command()
 def new_stock_entry():
@@ -23,6 +34,7 @@ def migrate():
     """Commands for database maintenance"""
     pass
 
+
 @migrate.command()
 def wipe():
     """Wipe database file"""
@@ -34,10 +46,12 @@ def wipe():
 #     click.echo('Here are your trade parameters')
 #     risk.calculate_trade_parameters()
 
+
 @cli.group()
 def stats():
     """Commands for getting stats about trading performance"""
     pass
+
 
 @stats.command()
 def sum():
