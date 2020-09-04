@@ -57,6 +57,7 @@ def create_stock_from_cli():
     ) 
 
     new_stock = Stock(
+        broker = broker,
         instrument = instrument,
         buy_date = buy_date,
         sell_date = sell_date,
