@@ -2,8 +2,11 @@ from sqlalchemy import Column, Float, Integer, String, Date
 from app.db import Base
 from sqlalchemy.orm import relationship
 
+
 def get_brokers(session):
     return session.query(Broker).all()
+
+
 class Broker(Base):
     __tablename__ = 'broker'
 
