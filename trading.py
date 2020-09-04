@@ -9,10 +9,12 @@ from app.brokers import get_brokers
 from app.db import session
 from app import statistics
 
+
 @click.group()
 def cli():
     pass
-    
+
+
 @cli.command()
 def new_broker_entry():
     """Add new broker to the journal"""
@@ -20,21 +22,24 @@ def new_broker_entry():
     session.add(new_broker)
     session.commit()
 
+
 @cli.command()
 def new_stock_entry():
     """Add new stock record to the journal"""
     if (not check_brokers()):
         print("this command requries brokers to work please enter some with the new-broker-entry command")
         return
-    brokers = get_brokers(session)    
+    brokers = get_brokers(session)
     new_stock = create_stock_from_cli(brokers)
     session.add(new_stock)
     session.commit()
+
 
 @cli.group()
 def migrate():
     """Commands for database maintenance"""
     pass
+
 
 @migrate.command()
 def wipe():
@@ -47,10 +52,12 @@ def wipe():
 #     click.echo('Here are your trade parameters')
 #     risk.calculate_trade_parameters()
 
+
 @cli.group()
 def stats():
     """Commands for getting stats about trading performance"""
     pass
+
 
 @stats.command()
 def sum():
@@ -69,6 +76,7 @@ def sum():
 # def list_entries(journal_id):
 #     """List my a trading journal entries"""
 #     journal.list_entries(journal_id)
+
 
 def check_brokers():
     brokers = get_brokers(session)

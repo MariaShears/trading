@@ -7,12 +7,12 @@ def create_broker_from_cli():
     name = get_required_string_from_cli('Broker you use')
     comment = get_optional_string_from_cli('Comment')
 
-    #calculated fields
+    # calculated fields
     date = datetime.datetime.today()
 
     new_broker = Broker(
-        name = name,
-        date = date,
-        comment = comment,
+        name=name,
+        date=date,
+        comment=comment,
     )
     return new_broker
