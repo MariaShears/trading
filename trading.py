@@ -5,7 +5,7 @@ from app import migrater
 from app.instruments.create import create_stock_from_cli
 from app.brokers.create_brokers import create_broker_from_cli
 from app.instruments.get import get_instrments
-from app.brokers.get import get_brokers
+from app.brokers import get_brokers
 from app.db import session
 from app import statistics
 
