@@ -1,10 +1,13 @@
-from sqlalchemy import Column, Float, Integer, String, Date
+from sqlalchemy import Column, Float, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import relationship
 from app.db import Base
 
 class Stock(Base):
-    __tablename__ = 'stocks'
+    __tablename__ = 'stock'
 
     id = Column(Integer, primary_key=True)
+    broker_id = Column(Integer, ForeignKey("broker.id"))
+   
     instrument = Column(String)
     buy_date = Column(Date)
     sell_date = Column(Date)
@@ -24,6 +27,8 @@ class Stock(Base):
     entry_signal = Column(String)
     exit_signal = Column(String)
     comment = Column(String)
+
+    broker = relationship("Broker", back_populates='stocks')
 
     # maybe eventually we'll want to override __repr__ to view stock in cli
     # def __repr__(self):

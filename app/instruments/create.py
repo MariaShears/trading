@@ -1,8 +1,9 @@
 import datetime
 from . import Stock
-from app.cli_utils import get_number_from_cli, get_optional_string_from_cli, get_date_from_cli
+from app.cli_utils import *
 
-# TODO: unit test all these caculate fns
+    
+
 def _caculate_initial_stop(entry_price, atr):
     return entry_price - (atr * 2)
 
@@ -27,17 +28,20 @@ def _caculate_trade_profit(exchange_rate, position_size, bid_price, entry_price,
     except ZeroDivisionError:
         return (position_size * (bid_price - entry_price) - comission)
 
-def create_stock_from_cli():
-    instrument = get_optional_string_from_cli('The product ISIN/WKN is')
-    # TODO: add validation to date fields with regex ex _get_date_from_cli
-    buy_date = get_date_from_cli("Buy Date")
-    sell_date = get_date_from_cli("Sell Date")
-    position_size = get_number_from_cli('Position size of the trade')
+def _presentable_broker(broker):
+    return (broker.name, broker)
+
+def create_stock_from_cli(brokers):
+    broker = get_existing_option_form_cli('Broker used for trade is', list(map(_presentable_broker, brokers)))
+    instrument = get_required_string_from_cli('The product ISIN/WKN is')
+    buy_date = get_date_from_cli("Buy date")
+    sell_date = get_date_from_cli("Sell date")
+    position_size = get_required_number_from_cli('Position size of the trade')
     comission = get_number_from_cli('Overall comission charged by broker')
     exchange_rate = get_number_from_cli('Excahge rate used by broker')
-    entry_price = get_number_from_cli("Your product's entry price")
+    entry_price = get_required_number_from_cli("Your product's entry price")
     target_price = get_number_from_cli('Target price of the product')
-    bid_price = get_number_from_cli('Bid price of the product')
+    bid_price = get_required_number_from_cli('Bid price of the product')
     atr = get_number_from_cli('ATR of the product at entry time')
     entry_signal = get_optional_string_from_cli('Signal for trade entry')
     exit_signal = get_optional_string_from_cli('Signal for trade exit')
@@ -58,6 +62,7 @@ def create_stock_from_cli():
     ) 
 
     new_stock = Stock(
+        broker = broker,
         instrument = instrument,
         buy_date = buy_date,
         sell_date = sell_date,
