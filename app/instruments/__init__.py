@@ -7,7 +7,6 @@ class Stock(Base):
 
     id = Column(Integer, primary_key=True)
     broker_id = Column(Integer, ForeignKey("broker.id"))
-   
     instrument = Column(String)
     buy_date = Column(Date)
     sell_date = Column(Date)

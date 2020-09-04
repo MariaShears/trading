@@ -16,3 +16,4 @@ class Broker(Base):
     comment = Column(String)
 
     stocks = relationship("Stock", back_populates='broker')
+    exemptions = relationship("Exemption", back_populates='broker')
