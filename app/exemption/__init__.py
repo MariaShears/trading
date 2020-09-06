@@ -8,8 +8,8 @@ class Exemption(Base):
 
     id = Column(Integer, primary_key=True)
     broker_id = Column(Integer, ForeignKey("broker.id"))
-    exemption = Column(Float)
+    exemption_amount = Column(Float)
     date = Column(Date)
-
+    comment = Column(String)
 
     broker = relationship("Broker", back_populates='exemptions')

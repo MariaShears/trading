@@ -2,8 +2,9 @@ import click
 import datetime
 
 from app import migrater
-from app.instruments.create import create_stock_from_cli
+from app.instruments.create_instruments import create_stock_from_cli
 from app.brokers.create_brokers import create_broker_from_cli
+from app.exemption.create_exemptions import create_exemption_from_cli
 from app.instruments.get import get_instrments
 from app.brokers import get_brokers
 from app.db import session
@@ -21,6 +22,26 @@ def new_broker_entry():
     new_broker = create_broker_from_cli()
     session.add(new_broker)
     session.commit()
+    while click.confirm('Do you want to continue?', abort=False):
+        new_broker = create_broker_from_cli()
+        session.add(new_broker)
+        session.commit()
+
+
+@cli.command()
+def new_exemption_entry():
+    """Add new exemption amount to the journal"""
+    if (not check_brokers()):
+        print("this command requries brokers to work please enter some with the new-broker-entry command")
+        return
+    brokers = get_brokers(session)
+    new_exemption = create_exemption_from_cli(brokers)
+    session.add(new_exemption)
+    session.commit()
+    while click.confirm('Do you want to continue?', abort=False):
+        new_exemption = create_exemption_from_cli(brokers)
+        session.add(new_exemption)
+        session.commit()
 
 
 @cli.command()

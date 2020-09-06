@@ -23,8 +23,7 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(500)),
         sa.Column('date', sa.Date),
-        sa.Column('tax_exemption', sa.Float),
-        sa.Column('comment', sa.String(500)),
+        sa.Column('comment', sa.String(500))
     )
 
 def downgrade():

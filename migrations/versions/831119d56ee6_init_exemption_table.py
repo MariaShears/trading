@@ -21,8 +21,9 @@ def upgrade():
         'exemption',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('broker_id', sa.Integer, sa.ForeignKey("brokers.id")),
-        sa.Column('exemption', sa.Float),
-        sa.Column('date', sa.Date)
+        sa.Column('exemption_amount', sa.Float),
+        sa.Column('date', sa.Date),
+        sa.Column('comment', sa.String)
     )
 
 def downgrade():
