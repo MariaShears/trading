@@ -6,9 +6,11 @@ from app.instruments.create_instruments import create_stock_from_cli
 from app.brokers.create_brokers import create_broker_from_cli
 from app.exemption.create_exemptions import create_exemption_from_cli
 from app.instruments.get import get_instrments
-from app.brokers import get_brokers
+from app.brokers.get import get_brokers
+from app.exemption.get import get_exemptions
 from app.db import session
 from app import statistics
+from app.exemption.exemption_calc import *
 
 
 @click.group()
@@ -56,6 +58,7 @@ def new_stock_entry():
     session.commit()
 
 
+
 @cli.group()
 def migrate():
     """Commands for database maintenance"""
@@ -85,6 +88,18 @@ def sum():
     """Return sum of trade profits by period"""
     instruments = get_instrments(session)
     statistics.print_calculations(instruments)
+
+@stats.command()
+def exemption_left():
+    """Returns the exemption sum left in this year"""
+    exemptions = get_exemptions(session)
+    click.echo(f'Your exemption sum left this year is {calculate_running_exemption(exemptions)}')
+
+@stats.command()
+def exemption_sum():
+    """Returns the exemption sum left in this year"""
+    exemptions = get_exemptions(session)
+    click.echo(f'Your exemption sum for this year is {calculate_total_exemption(exemptions)}')    
 
 # @cli.command()
 # def return_stock():

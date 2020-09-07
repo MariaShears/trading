@@ -1,7 +1,7 @@
 import datetime
 from . import Exemption
 from app.cli_utils import get_required_number_from_cli, get_optional_string_from_cli, get_existing_option_form_cli
-from app.brokers import presentable_broker
+from app.brokers.get import presentable_broker
 
 
 def create_exemption_from_cli(brokers):
