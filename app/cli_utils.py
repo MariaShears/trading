@@ -8,7 +8,7 @@ def get_existing_option_form_cli(description, options):
         question += "\n" + str(i) + " - " + option[0]
     question += "\n"
     while selected_option is None:
-        try:
+        try: 
             answer = int(input(question))
             selected_option = options[answer][1]
         except Exception:

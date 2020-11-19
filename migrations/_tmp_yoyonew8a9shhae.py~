@@ -1,0 +1,11 @@
+"""
+Add exchange_rate to journal table
+"""
+
+from yoyo import step
+
+__depends__ = {'20200618_01_ml0VA-add-new-fields-comission-and-buying-sum-comission'}
+
+steps = [
+   step("ALTER table journal RENAME TO journal_old");
+]

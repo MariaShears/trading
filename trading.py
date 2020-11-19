@@ -1,8 +1,11 @@
 import click
 import datetime
+import pprint
+import pandas as pd
 
 from app import migrater
 from app.instruments.create_instruments import create_stock_from_cli
+from app.instruments.edit_instruments import edit_stock_from_cli
 from app.brokers.create_brokers import create_broker_from_cli
 from app.exemption.create_exemptions import create_exemption_from_cli
 from app.instruments.get import get_instrments
@@ -11,6 +14,8 @@ from app.exemption.get import get_exemptions
 from app.db import session
 from app import statistics
 from app.exemption.exemption_calc import *
+from app.instruments import Stock
+from app.instruments.get import presentable_stock
 
 
 @click.group()
@@ -56,7 +61,27 @@ def new_stock_entry():
     new_stock = create_stock_from_cli(brokers)
     session.add(new_stock)
     session.commit()
+    while click.confirm('Do you want to continue?', abort=False):
+        new_exemption = create_stock_from_cli(brokers)
+        session.add(new_stock)
+        session.commit()
 
+@cli.command()
+def list_entries():
+    """List journal entries"""
+    all_entries = (session.query(Stock).all())
+    # entries_dataframe = pd.DataFrame([(entry.id, entry.instrument, entry.buy_date, entry.sell_date, entry.buying_sum) for entry in all_entries],
+    #                     columns=['id', 'instrument', 'buy_date', 'sell_date', 'buying_sum']).set_index('id')
+    # print (entries_dataframe)
+    for u in all_entries:
+        pprint.pprint (u.__dict__)
+
+@cli.command()
+def edit_stock_entry():
+    """Edit journal entries"""
+    stocks = get_instrments(session)
+    edited_entry = edit_stock_from_cli(stocks)
+    print (edited_entry)
 
 
 @cli.group()
@@ -90,16 +115,18 @@ def sum():
     statistics.print_calculations(instruments)
 
 @stats.command()
-def exemption_left():
-    """Returns the exemption sum left in this year"""
-    exemptions = get_exemptions(session)
-    click.echo(f'Your exemption sum left this year is {calculate_running_exemption(exemptions)}')
-
-@stats.command()
 def exemption_sum():
     """Returns the exemption sum left in this year"""
     exemptions = get_exemptions(session)
-    click.echo(f'Your exemption sum for this year is {calculate_total_exemption(exemptions)}')    
+    #click.echo(f'Your exemption sum for this year is {calculate_total_exemption(exemptions)}')  
+
+@stats.command()
+def exemption_left():
+    """Returns the exemption sum left in this year"""
+    exemptions = get_exemptions(session)
+    # click.echo(f'Your exemption sum left this year is {calculate_running_exemption(exemptions)}')  
+
+
 
 # @cli.command()
 # def return_stock():

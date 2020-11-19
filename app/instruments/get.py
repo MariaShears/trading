@@ -4,6 +4,10 @@ import datetime
 def get_instrments(session):
     return session.query(Stock).all()
 
+def presentable_stock(stock):
+    stock_properties = str(stock.__dict__)
+    return (stock_properties, stock)
+
 def filter_by_year(instruments):
     filtered_instruments = []
     for instrument in instruments:

@@ -16,6 +16,7 @@ yahoo-finance = "*"
 sqlalchemy = "*"
 alembic = "*"
 pytest = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.7"

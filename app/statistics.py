@@ -29,5 +29,7 @@ def calculate_profit_month(instruments):
     monthly_instruments = filter_by_month(instruments)
     return calculate_profit(monthly_instruments)
 
+# def calculate_winning_trades(instruments):
+    
 
 
