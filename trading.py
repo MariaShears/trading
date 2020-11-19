@@ -2,6 +2,7 @@ import click
 import datetime
 import pprint
 import pandas as pd
+from pandas import json_normalize
 
 from app import migrater
 from app.instruments.create_instruments import create_stock_from_cli
@@ -70,11 +71,10 @@ def new_stock_entry():
 def list_entries():
     """List journal entries"""
     all_entries = (session.query(Stock).all())
-    # entries_dataframe = pd.DataFrame([(entry.id, entry.instrument, entry.buy_date, entry.sell_date, entry.buying_sum) for entry in all_entries],
-    #                     columns=['id', 'instrument', 'buy_date', 'sell_date', 'buying_sum']).set_index('id')
-    # print (entries_dataframe)
+    all_entries_printable = {}  
     for u in all_entries:
-        pprint.pprint (u.__dict__)
+        u = json_normalize(u.__dict__)
+        print(u.iloc[:, 1:]) 
 
 @cli.command()
 def edit_stock_entry():
@@ -118,27 +118,13 @@ def sum():
 def exemption_sum():
     """Returns the exemption sum left in this year"""
     exemptions = get_exemptions(session)
-    #click.echo(f'Your exemption sum for this year is {calculate_total_exemption(exemptions)}')  
+    click.echo(f'Your exemption sum for this year is {calculate_total_exemption(exemptions)}')  
 
 @stats.command()
 def exemption_left():
     """Returns the exemption sum left in this year"""
     exemptions = get_exemptions(session)
-    # click.echo(f'Your exemption sum left this year is {calculate_running_exemption(exemptions)}')  
-
-
-
-# @cli.command()
-# def return_stock():
-#     """Retrieves a list of wished stocks"""
-#     click.echo('Here is the list of stocks')
-#     find_stock.get_data()
-
-# @cli.command()
-# @click.option('--journal-id')
-# def list_entries(journal_id):
-#     """List my a trading journal entries"""
-#     journal.list_entries(journal_id)
+    click.echo(f'Your exemption sum left this year is {calculate_running_exemption(exemptions)}')  
 
 
 def check_brokers():
