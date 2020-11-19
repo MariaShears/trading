@@ -3,10 +3,6 @@ from app.db import Base
 from sqlalchemy.orm import relationship
 
 
-def get_brokers(session):
-    return session.query(Broker).all()
-
-
 class Broker(Base):
     __tablename__ = 'broker'
 
@@ -16,3 +12,4 @@ class Broker(Base):
     comment = Column(String)
 
     stocks = relationship("Stock", back_populates='broker')
+    exemptions = relationship("Exemption", back_populates='broker')
