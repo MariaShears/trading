@@ -17,6 +17,8 @@ from app import statistics
 from app.exemption.exemption_calc import *
 from app.instruments import Stock
 from app.instruments.get import presentable_stock
+from app.earnings.get_earnings import get_earnings
+
 
 
 @click.group()
@@ -75,6 +77,11 @@ def list_entries():
     for u in all_entries:
         u = json_normalize(u.__dict__)
         print(u.iloc[:, 1:]) 
+
+@cli.command()
+def list_earnings():
+    """List earnings for a stock"""
+    print (get_earnings())
 
 @cli.command()
 def edit_stock_entry():
