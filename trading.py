@@ -17,7 +17,7 @@ from app import statistics
 from app.exemption.exemption_calc import *
 from app.instruments import Stock
 from app.instruments.get import presentable_stock
-from app.earnings.get_earnings import get_earnings
+from app.earnings.get_earnings import get_last_4_earnings, count_price_increase_cases_on_positive_surprise
 
 
 
@@ -79,9 +79,14 @@ def list_entries():
         print(u.iloc[:, 1:]) 
 
 @cli.command()
-def list_earnings():
+def list_last_4_earnings():
     """List earnings for a stock"""
-    print (get_earnings())
+    print (get_last_4_earnings())
+
+@cli.command()
+def earnings_price_effect():
+    """Show counts of cases when there was and was not a price increase after a positive earnings surprise"""
+    print (count_price_increase_cases_on_positive_surprise())
 
 @cli.command()
 def edit_stock_entry():
