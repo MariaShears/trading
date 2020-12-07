@@ -33,6 +33,12 @@ def _caculate_trade_profit(exchange_rate, position_size, bid_price, entry_price,
     except ZeroDivisionError:
         return (position_size * (bid_price - entry_price) - comission)
 
+def _calculate_tax(trade_profit):
+    if trade_profit > 0:
+        withholding_tax = trade_profit * 0.25 
+        return withholding_tax + withholding_tax * 0.055 
+    else:
+        return 0 
 
 def create_stock_from_cli(brokers):
     broker = get_existing_option_form_cli(
@@ -67,6 +73,7 @@ def create_stock_from_cli(brokers):
         entry_price=entry_price,
         comission=comission
     )
+    tax = _calculate_tax(trade_profit)
 
     new_stock = Stock(
         broker=broker,
@@ -79,6 +86,7 @@ def create_stock_from_cli(brokers):
         position_size=position_size,
         comission=comission,
         trade_profit=trade_profit,
+        tax=tax,
         risk_reward_ratio=risk_reward_ratio,
         entry_price=entry_price,
         target_price=target_price,

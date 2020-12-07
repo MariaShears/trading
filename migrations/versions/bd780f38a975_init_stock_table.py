@@ -1,8 +1,8 @@
-"""init stocks table
+"""init_stock_table
 
-Revision ID: c7437799e5a8
-Revises: 
-Create Date: 2020-08-20 16:12:07.190830
+Revision ID: bd780f38a975
+Revises: 831119d56ee6
+Create Date: 2020-12-07 23:08:45.085466
 
 """
 from alembic import op
@@ -10,14 +10,14 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c7437799e5a8'
-down_revision = None
+revision = 'bd780f38a975'
+down_revision = '831119d56ee6'
 branch_labels = None
 depends_on = None
 
 
 def upgrade():
-    op.create_table(
+       op.create_table(
         'stock',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('broker_id', sa.Integer),
@@ -30,6 +30,7 @@ def upgrade():
         sa.Column('position_size', sa.Float),
         sa.Column('comission', sa.Float),
         sa.Column('trade_profit', sa.Float),
+        sa.Column('tax', sa.Float), 
         sa.Column('risk_reward_ratio', sa.Float),
         sa.Column('entry_price', sa.Float),
         sa.Column('target_price', sa.Float),

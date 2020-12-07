@@ -16,6 +16,7 @@ class Stock(Base):
     position_size = Column(Float)
     comission = Column(Float)
     trade_profit = Column(Float)
+    tax = Column(Float)
     risk_reward_ratio = Column(Float)
     entry_price = Column(Float)
     target_price = Column(Float)
