@@ -9,9 +9,10 @@ from app.instruments.create_instruments import create_stock_from_cli
 from app.instruments.edit_instruments import edit_stock_from_cli
 from app.brokers.create_brokers import create_broker_from_cli
 from app.exemption.create_exemptions import create_exemption_from_cli
-from app.instruments.get import get_instrments
+from app.instruments.get import get_instruments
 from app.brokers.get import get_brokers
 from app.exemption.get import get_exemptions
+from app.exemption import exemption_calc
 from app.db import session
 from app import statistics
 from app.exemption.exemption_calc import *
@@ -53,6 +54,13 @@ def new_exemption_entry():
         new_exemption = create_exemption_from_cli(brokers)
         session.add(new_exemption)
         session.commit()
+
+@cli.command()
+def exemption_balance():
+    """Show exemption balance"""
+    exemptions = get_exemptions(session)
+    print(f"Your total exemption is: {calculate_total_exemption(exemptions)}")
+    print(calculate_running_exemption_per_broker())
 
 
 @cli.command()

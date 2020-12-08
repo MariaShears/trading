@@ -1,7 +1,7 @@
 from . import Stock
 import datetime
 
-def get_instrments(session):
+def get_instruments(session):
     return session.query(Stock).all()
 
 def presentable_stock(stock):
