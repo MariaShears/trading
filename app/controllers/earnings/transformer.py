@@ -3,14 +3,14 @@ import numpy as np
 from pandas import json_normalize
 
 def get_earnings_with_prices(raw_earnings, raw_prices):
-    earnings = _clean_earnings(raw_earnings)
+    earnings = clean_earnings(raw_earnings)
     prices = _clean_prices(raw_prices)
     merged = prices.merge(earnings, on='reportedDate', how='left')
     _calculate_prices_next_previous_day(merged)
     _calculate_price_increase(merged)
     return merged
 
-def _clean_earnings(raw_earnings): 
+def clean_earnings(raw_earnings): 
     earnings_df = json_normalize(raw_earnings['quarterlyEarnings'])
     earnings_df = earnings_df[['reportedDate', 'surprise', 'surprisePercentage']]
     earnings_df['surprise'] = pd.to_numeric(earnings_df['surprise'], errors='coerce')
