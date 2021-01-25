@@ -1,5 +1,13 @@
 # Trading Journal
 
+Trading journal allows you to keep track of your trading activity by saving all the relevant
+information on the trades (like key trade information, commentary, tax information, comission
+charged by broker, currency, exchange rate etc.) for future analysis (or visualization on a personal
+dashboard) plattforms into an sqlite DB. It also helps you manage your taxes (by keeping track of how much of your allowed tax
+exemption sum you have used up and how much taxes are due (calculated for Germany). Apart from that
+it helps make decisions on trades by providing relevant information on the stock like earnings
+surprise in the last quarters, calculating risk (also for certificates) or calculating the best entry price (minimum for the last 10 days). 
+
 ## Initial Dev Setup
 
 1. clone the repo and cd into the folder
@@ -55,4 +63,42 @@ docs on creating tests [here](https://docs.pytest.org/en/latest/getting-started.
 
 - [SQL Lite ORM SQL Alchemy](https://docs.sqlalchemy.org/en/13/orm/tutorial.html#version-check)
 
+## Features
 
+- add brokers you use to DB with:
+```shell
+$ (trading) python trading.py new-broker-entry
+```
+- add new exemption amount to DB with:
+```shell
+$ (trading) python trading.py new-exemption-entry
+```
+- add new trade (stock) with:
+```shell
+$ (trading) python trading.py new-stock-entry
+```
+- edit a trade entry (stock) with:
+```shell
+$ (trading) python trading.py edit-stock-entry
+```
+- list all your trades (entries) with:
+```shell
+$ (trading) python trading.py list-entries
+```
+- show your exemption balance (how much used up this year) with:
+```shell
+$ (trading) python trading.py exemption-balance
+```
+- show statistics on your trades with:
+```shell
+$ (trading) python trading.py stats
+```
+- show if there was a price increase as a result of positive earnings surprise historically for a
+    specified stock with:
+```shell
+$ (trading) python trading.py earnings-price-effect [SYMBOL]
+```
+- list last 4 earnings for a specified stock with:
+```shell
+$ (trading) python trading.py list-last-4-earnings [SYMBOL]
+```

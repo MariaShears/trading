@@ -17,6 +17,7 @@ sqlalchemy = "*"
 alembic = "*"
 pytest = "*"
 pylint = "*"
+dash = "*"
 
 [requires]
 python_version = "3.7"

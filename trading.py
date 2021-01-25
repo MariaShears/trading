@@ -18,9 +18,7 @@ from app import statistics
 from app.exemption.exemption_calc import *
 from app.instruments import Stock
 from app.instruments.get import presentable_stock
-#from app.earnings.get_earnings import get_last_4_earnings, count_price_increase_cases_on_positive_surprise
 from app.controllers import earnings as earnings_controller
-
 
 
 @click.group()
@@ -55,11 +53,12 @@ def new_exemption_entry():
         session.add(new_exemption)
         session.commit()
 
+
 @cli.command()
 def exemption_balance():
     """Show exemption balance"""
     exemptions = get_exemptions(session)
-    print(f"Your total exemption is: {calculate_total_exemption(exemptions)}")
+    print(calculate_total_exemption(exemptions))
     print(calculate_running_exemption_per_broker())
 
 
@@ -78,32 +77,36 @@ def new_stock_entry():
         session.add(new_stock)
         session.commit()
 
+
 @cli.command()
 def list_entries():
     """List journal entries"""
     all_entries = (session.query(Stock).all())
-    all_entries_printable = {}  
+    all_entries_printable = {}
     for u in all_entries:
         u = json_normalize(u.__dict__)
-        print(u.iloc[:, 1:]) 
+        print(u.iloc[:, 1:])
+
 
 @cli.command()
 def list_last_4_earnings():
     """List earnings for a stock"""
-    print (get_last_4_earnings())
+    print(get_last_4_earnings())
+
 
 @cli.command()
 @click.argument('symbol')
 def earnings_price_effect(symbol):
     """Show counts of cases when there was and was not a price increase after a positive earnings surprise"""
-    print (earnings_controller.count_price_increase_cases_on_positive_surprise(symbol))
+    print(earnings_controller.count_price_increase_cases_on_positive_surprise(symbol))
+
 
 @cli.command()
 def edit_stock_entry():
     """Edit journal entries"""
     stocks = get_instrments(session)
     edited_entry = edit_stock_from_cli(stocks)
-    print (edited_entry)
+    print(edited_entry)
 
 
 @cli.group()
@@ -136,17 +139,21 @@ def sum():
     instruments = get_instrments(session)
     statistics.print_calculations(instruments)
 
+
 @stats.command()
 def exemption_sum():
-    """Returns the exemption sum left in this year"""
+    """Returns the total exemption sum for this year"""
     exemptions = get_exemptions(session)
-    click.echo(f'Your exemption sum for this year is {calculate_total_exemption(exemptions)}')  
+    this_year_exemption_sum = calculate_total_exemption(exemptions)
+    click.echo('Your total exemption sum this year is', this_year_exemption_sum) 
+
 
 @stats.command()
 def exemption_left():
     """Returns the exemption sum left in this year"""
     exemptions = get_exemptions(session)
-    click.echo(f'Your exemption sum left this year is {calculate_running_exemption(exemptions)}')  
+    this_year_exemption_left = calculate_running_exemption(exemptions)
+    click.echo('Your exemption sum left this year is', this_year_exemption_left)
 
 
 def check_brokers():
