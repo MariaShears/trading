@@ -3,11 +3,11 @@ import pprint
 
 import click
 import pandas as pd
-from pandas import json_normalize
 
 from app import migrater
 from app import statistics
 from app.db import session
+from pandas import json_normalize
 from app.instruments import Stock
 from app.instruments.get import get_instruments
 from app.instruments.get import presentable_stock
@@ -28,18 +28,17 @@ def check_brokers():
 
 
 @click.group()
-    
 def cli():
     pass
 
 
 @cli.command()
 def new_broker_entry():
-    """Add new broker to the journal"""
+    """add new broker to the journal"""
     new_broker = create_broker_from_cli()
     session.add(new_broker)
     session.commit()
-    while click.confirm('Do you want to continue?', abort=False):
+    while click.confirm('do you want to continue?', abort=False):
         new_broker = create_broker_from_cli()
         session.add(new_broker)
         session.commit()
@@ -47,15 +46,15 @@ def new_broker_entry():
 
 @cli.command()
 def new_exemption_entry():
-    """Add new exemption amount to the journal"""
+    """add new exemption amount to the journal"""
     if (not check_brokers()):
-        print("This command requries brokers to work please enter some with the new-broker-entry command")
+        print("this command requries brokers to work please enter some with the new-broker-entry command")
         return
     brokers = get_brokers(session)
     new_exemption = create_exemption_from_cli(brokers)
     session.add(new_exemption)
     session.commit()
-    while click.confirm('Do you want to continue?', abort=False):
+    while click.confirm('do you want to continue?', abort=False):
         new_exemption = create_exemption_from_cli(brokers)
         session.add(new_exemption)
         session.commit()
@@ -63,37 +62,35 @@ def new_exemption_entry():
 
 @cli.command()
 def new_stock_entry():
-    """Add new stock record to the journal"""
+    """add new stock record to the journal"""
     if (not check_brokers()):
-        print("This command requries brokers to work please enter some with the new-broker-entry command")
+        print("this command requries brokers to work please enter some with the new-broker-entry command")
         return
     brokers = get_brokers(session)
     new_stock = create_stock_from_cli(brokers)
     session.add(new_stock)
     session.commit()
-    while click.confirm('Do you want to continue?', abort=False):
+    while click.confirm('do you want to continue?', abort=False):
         new_stock = create_stock_from_cli(brokers)
         session.add(new_stock)
         session.commit()
 
 
-#finish the command
+# finish the command
 @cli.command()
 def edit_stock_entry():
-    """Edit journal entries od stocks"""
+    """edit journal entries od stocks"""
     stocks = get_instruments(session)
     edited_entry = edit_stock_from_cli(stocks)
     print(edited_entry)
 
 
-#turn into human readable output, other solution        
+# turn into human readable output, other solution
 @cli.command()
 def list_entries():
-    """List journal stock entries"""
+    """list journal stock entries"""
     all_entries = (session.query(Stock).all())
-    for u in all_entries:
-        u = json_normalize(u.__dict__)
-        print(u.iloc[:, 1:])
+    print(earnings_controller.get_all_entries_df(all_entries))
 
 
 @cli.command()
@@ -103,15 +100,16 @@ def exemption_balance():
     this_year_exemption_sum = calculate_total_exemption(exemptions)
     this_year_exemption_left = calculate_running_exemption(exemptions)
     print('Your total exemption sum this year is:',
-               this_year_exemption_sum)
+          this_year_exemption_sum)
     print('Your exemption sum left this year is:',
-               this_year_exemption_left)    
+          this_year_exemption_left)
 
 
 @cli.group()
 def stats():
     """Commands for getting stats about trading performance"""
     pass
+
 
 @stats.command()
 def sum():
@@ -138,6 +136,7 @@ def list_last_4_earnings(symbol):
 def migrate():
     """Commands for database maintenance"""
     pass
+
 
 @migrate.command()
 def wipe():
