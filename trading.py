@@ -81,11 +81,15 @@ def new_stock_entry():
 def edit_stock_entry():
     """edit journal entries od stocks"""
     stocks = get_instruments(session)
-    edited_entry = edit_stock_from_cli(stocks)
-    print(edited_entry)
-
+    brokers = get_brokers(session)
+    entry_to_edit, k1, v1, k2, v2 = edit_stock_from_cli(
+        session, stocks, brokers)
+    while click.confirm('do you want to update the value(s)?', abort=False):
+        print("update!")
 
 # turn into human readable output, other solution
+
+
 @cli.command()
 def list_entries():
     """list journal stock entries"""

@@ -40,9 +40,9 @@ def get_all_entries_df(all_entries):
     'exit_signal',
     'comment'])
     for entry in all_entries:
-        entries = entries.append(pd.DataFrame(data={
-            'id': entry.id, 
-            'broker_id': entry.broker_id, 
+        entries = pd.concat([entries, pd.DataFrame(data={
+            'id': entry.id,
+            'broker_id': entry.broker_id,
             'instrument': entry.instrument,
             'buy_date': entry.buy_date,
             'sell_date': entry.sell_date,
@@ -62,8 +62,8 @@ def get_all_entries_df(all_entries):
             'risk_per_stock': entry.risk_per_stock,
             'entry_signal': entry.entry_signal,
             'exit_signal': entry.exit_signal,
-            'comment': entry.comment 
-        }, index = [1]), ignore_index = True)
+            'comment': entry.comment
+        }, index = [1])])
     # pd.set_option('display.width', 100)
     # pd.set_option('display.max_columns', 100)
     return entries

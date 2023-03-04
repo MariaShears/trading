@@ -1,6 +1,7 @@
 import datetime
 import re
 
+
 def get_existing_option_form_cli(description, options):
     selected_option = None
     question = description
@@ -8,15 +9,13 @@ def get_existing_option_form_cli(description, options):
         question += "\n" + str(i) + " - " + option[0]
     question += "\n"
     while selected_option is None:
-        try: 
+        try:
             answer = int(input(question))
             selected_option = options[answer][1]
         except Exception:
             print("Give in a number from the selection")
     return selected_option
 
-
-    
 
 def get_number_from_cli(description):
     """Gets a number from the command line defaulting to 0"""
@@ -27,6 +26,7 @@ def get_number_from_cli(description):
         except Exception:
             print(f"{description} is should be a number")
     return num
+
 
 def get_required_number_from_cli(description):
     """Gets a required number from the command line"""
