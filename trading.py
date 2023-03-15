@@ -3,6 +3,9 @@ import pprint
 
 import click
 import pandas as pd
+import logging
+
+from sqlalchemy import update
 
 from app import migrater
 from app import statistics
@@ -76,16 +79,30 @@ def new_stock_entry():
         session.commit()
 
 
-# finish the command
 @cli.command()
 def edit_stock_entry():
     """edit journal entries od stocks"""
     stocks = get_instruments(session)
     brokers = get_brokers(session)
-    entry_to_edit, k1, v1, k2, v2 = edit_stock_from_cli(
+
+    entry_to_edit, entry_to_edit_items, list_of_new_entries_items = edit_stock_from_cli(
         session, stocks, brokers)
-    while click.confirm('do you want to update the value(s)?', abort=False):
-        print("update!")
+    changed_entries_dict = {}
+    for attribute, value in entry_to_edit_items:
+        for new_attribute, new_value in list_of_new_entries_items:
+            if attribute == new_attribute and value != new_value:
+                data = {attribute: new_value}
+                for key, val in data.items():
+                    changed_entries_dict[key] = val
+                logging.INFO("Change in the following entries detected:")
+                logging.INFO(
+                    f"existing_fields: {attribute, value}, changed_fields:{new_attribute, new_value}")
+                if click.confirm('do you want to update?', abort=False):
+                    setattr(entry_to_edit, attribute, new_value)
+                    session.commit()
+                    logging.INFO('Entry has been updated!')
+    if not changed_entries_dict:
+        logging.INFO("No changes detected!")
 
 # turn into human readable output, other solution
 
