@@ -51,7 +51,6 @@ def edit_stock_from_cli(session, stocks, brokers):
     entry_to_edit_dict = {}
     for x in mapper.attrs:
         entry_to_edit_dict[x.key] = x.value
-
     changed_entries_dict = {}
     for attribute, value in entry_to_edit_dict.items():
         for new_attribute, new_value in list_of_new_entries.items():

@@ -84,7 +84,6 @@ def edit_stock_entry():
     """edit journal entries of stocks"""
     stocks = get_instruments(session)
     brokers = get_brokers(session)
-
     edit_stock_from_cli(session, stocks, brokers)
 
 
