@@ -14,7 +14,6 @@ logger.setLevel(logging.INFO)
 def edit_stock_from_cli(session, stocks, brokers):
     entry_to_edit = get_existing_option_form_cli(
         'ID of entry you want to edit is', list(map(presentable_stock, stocks)))
-
     broker = get_existing_option_form_cli(
         'Broker used for trade is', list(map(presentable_broker, brokers)), entry_to_edit.broker_id)
     instrument = get_required_string_from_cli(

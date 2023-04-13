@@ -1,6 +1,6 @@
 import datetime
 import re
-import readline
+import gnureadline as readline
 
 
 def get_existing_option_form_cli(description, options, prefill_text=None):
