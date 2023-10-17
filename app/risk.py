@@ -12,13 +12,6 @@ def calculate_trade_parameters():
         master_df = master_df.append(new_df, ignore_index=True)
         print(master_df)
 
-
-    # trade_frames = [get_trade_frame()]
-    # pprint.pprint(trade_frames)
-    # while click.confirm('Do you want to continue?', abort=False):
-    #     trade_frames.append(get_trade_frame())
-    #     pprint.pprint(trade_frames)
-
 def get_trade_frame():
     # ask user what their trading capital is and save it
     capital = float(input("Your current overall trading capital: "))
@@ -55,7 +48,3 @@ def get_trade_frame():
                 'Position size': [position_size], 
                 'Buying sum': [buying_sum]
                 })
-
-
-
-

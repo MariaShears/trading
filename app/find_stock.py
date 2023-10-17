@@ -1,10 +1,9 @@
 import pprint
 import json
 import requests
+import urllib2
 
-# response = requests.get("https://financialmodelingprep.com/api/v3/company/stock/list")
-# todos = json.loads(response.text)
-# pprint
+
 try:
     # For Python 3.0 and later
     from urllib.request import urlopen
@@ -21,10 +20,6 @@ def get_data():
     response = requests.request('GET', url, params=params)
     response.json()
 
-
-
-
-
     url = ("https://financialmodelingprep.com/api/v3/company/stock/list?apikey=bc90c8b2498094b8effc464c1bc45b50")
     pprint.pprint(get_jsonparsed_data(url)) 
 
@@ -32,11 +27,9 @@ def get_jsonparsed_data(url):
 
     response = urlopen(url)
     stocks_list = {response.read().decode("utf-8")}
-    nas
     for stock in stocks_list:
         if (stocks_list['exchange'] == 'NasdaqGS'):
             nasdaq_stocks = nasdaq_stocks.append(stock)
     return json.loads(stocks_list[3])
-    #return json.loads(stocks_list)
 
 

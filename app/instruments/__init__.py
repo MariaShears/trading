@@ -29,16 +29,3 @@ class Stock(Base):
     comment = Column(String)
 
     broker = relationship("Broker", back_populates='stocks')
-
-    # maybe eventually we'll want to override __repr__ to view stock in cli
-    # def __repr__(self):
-    #    return f"<Stock name='{self.name}'>"
-
-# class KO(Stock):
-#     __tablename__ = 'kos'
-
-#     subscription_ratio = Column(Float)
-#     knock_out = Column(Float)
-#     multiplicator = Column(Float)
-#     strike_price = Column(Float)
-#     entry_underlying_price = Column(Float)

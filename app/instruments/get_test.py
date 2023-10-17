@@ -1,6 +1,8 @@
-from app.instruments import get, Stock
+# these imports are needed so sqlalchemy can find the def of Broker and Exemption
+import app.brokers
+import app.exemption
+from . import get, Stock
 import datetime
-
 
 def get_mock_instrument(name):
     return Stock(

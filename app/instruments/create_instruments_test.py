@@ -1,4 +1,4 @@
-from app.instruments import create
+from . import create_instruments as create
 
 def test_calculate_initial_stop():
     assert create._caculate_initial_stop(entry_price = 46.0, atr = 1.4) == 43.2

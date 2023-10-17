@@ -38,11 +38,6 @@ $ (trading) python trading.py exemption-balance
 ```shell
 $ (trading) python trading.py stats
 ```
-- show if there was a price increase as a result of positive earnings surprise historically for a
-    specified stock with:
-```shell
-$ (trading) python trading.py earnings-price-effect [SYMBOL]
-```
 - list last 4 earnings for a specified stock with:
 ```shell
 $ (trading) python trading.py list-last-4-earnings [SYMBOL]

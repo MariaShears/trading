@@ -1,5 +1,5 @@
 from . import statistics
-from .instruments.test_get import get_mock_instrument
+from .instruments.get_test import get_mock_instrument
 
 def get_mock_instrument_with_profit(profit):
     mock = get_mock_instrument('stock')

@@ -1,3 +1,5 @@
+
+import datetime
 from app.exemption.get import get_exemptions
 from app.db import session
 from app.instruments.get import get_instruments
@@ -5,10 +7,14 @@ from app.brokers.get import get_brokers
 from app.instruments import Stock
 
 def calculate_total_exemption(exemptions):
+    current_year = datetime.datetime.today().year
     sum_exemptions = 0
     for exemption in exemptions:
-        sum_exemptions += exemption.exemption_amount
-    return sum_exemptions
+        if exemption.date.year == current_year:
+            sum_exemptions += exemption.exemption_amount
+            return sum_exemptions
+    else:
+        return sum_exemptions
 
 
 def calculate_running_exemption(exemptions):

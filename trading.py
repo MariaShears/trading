@@ -1,22 +1,13 @@
-import datetime
-import pprint
-
 import click
-import pandas as pd
-import logging
-
-from sqlalchemy import update
 
 from app import migrater
 from app import statistics
+from app import risk
 from app.db import session
-from pandas import json_normalize
 from app.instruments import Stock
 from app.instruments.get import get_instruments
-from app.instruments.get import presentable_stock
 from app.instruments.create_instruments import create_stock_from_cli
 from app.instruments.edit_instruments import edit_stock_from_cli
-from app.exemption import exemption_calc
 from app.exemption.get import get_exemptions
 from app.exemption.exemption_calc import *
 from app.exemption.create_exemptions import create_exemption_from_cli
@@ -106,24 +97,17 @@ def exemption_balance():
           this_year_exemption_left)
 
 
-@cli.group()
+@cli.command()
 def stats():
     """Commands for getting stats about trading performance"""
-    pass
-
-
-@stats.command()
-def sum():
-    """Return sum of trade profits by period"""
     instruments = get_instruments(session)
     statistics.print_calculations(instruments)
 
-
 @cli.command()
-@click.argument('symbol')
-def earnings_price_effect(symbol):
-    """Show counts of cases when there was and was not a price increase after a positive earnings surprise"""
-    print(earnings_controller.count_price_increase_cases_on_positive_surprise(symbol))
+def calculate_risk():
+    """Calculate risk parameters of the trade"""
+    # instruments = get_instruments(session)
+    risk.calculate_trade_parameters()
 
 
 @cli.command()
