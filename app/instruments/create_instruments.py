@@ -1,4 +1,3 @@
-import datetime
 from . import Stock
 from app.cli_utils import *
 from app.brokers.get import presentable_broker

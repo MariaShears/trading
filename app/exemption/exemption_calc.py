@@ -1,10 +1,9 @@
 
 import datetime
-from app.exemption.get import get_exemptions
+
 from app.db import session
 from app.instruments.get import get_instruments
 from app.brokers.get import get_brokers
-from app.instruments import Stock
 
 def calculate_total_exemption(exemptions):
     current_year = datetime.datetime.today().year
@@ -19,6 +18,7 @@ def calculate_total_exemption(exemptions):
 
 def calculate_running_exemption(exemptions):
     instruments = get_instruments(session)
+    print(instruments)
     profits = 0
     for instrument in instruments:
         profits += instrument.trade_profit
@@ -34,4 +34,4 @@ def calculate_running_exemption_per_broker():
         total_profit = 0
         for stock in broker.stocks:
             total_profit += stock.trade_profit
-        print(f"Broker {broker.name} has remaining exemption {total_exemption -  total_profit}")
+        print(f"Broker {broker.name} has remaining exemption {total_exemption - total_profit}")

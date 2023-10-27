@@ -2,8 +2,7 @@ from . import statistics
 from .instruments.get_test import get_mock_instrument
 
 def get_mock_instrument_with_profit(profit):
-    mock = get_mock_instrument('stock')
-    mock.trade_profit = profit
+    mock = get_mock_instrument('stock', trade_profit=profit, broker_id=1)
     return mock
 
 
