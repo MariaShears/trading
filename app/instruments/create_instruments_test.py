@@ -8,7 +8,7 @@ def test_caculate_risk_per_stock():
     assert create._caculate_risk_per_stock(entry_price = 30, initial_stop = 26) == 4
     assert create._caculate_risk_per_stock(entry_price = 6.0, initial_stop = 2) == 4
 
-def test__aculate_risk_reward_ratio():
+def test_caculate_risk_reward_ratio():
     assert create._caculate_risk_reward_ratio(risk_per_stock = 4, target_price = 65, entry_price = 60) == 0.8
     assert create._caculate_risk_reward_ratio(risk_per_stock = 4, target_price = 65, entry_price = 65) == 0
 

@@ -13,5 +13,22 @@ def test_calculate_profit():
         get_mock_instrument_with_profit(25),
         get_mock_instrument_with_profit(25)
     ]
-
     assert statistics.calculate_profit(test_instruments) == 100
+
+def test_calculate_profit_year():
+    test_instruments = [ 
+        get_mock_instrument_with_profit(30),
+        get_mock_instrument_with_profit(20),
+        get_mock_instrument_with_profit(25),
+        get_mock_instrument_with_profit(25)
+    ]
+    assert statistics.calculate_profit_year(test_instruments) == 100
+    
+def test_calculate_profit_month():
+    test_instruments = [ 
+        get_mock_instrument_with_profit(30),
+        get_mock_instrument_with_profit(20),
+        get_mock_instrument_with_profit(25),
+        get_mock_instrument_with_profit(25)
+    ]
+    assert statistics.calculate_profit_month(test_instruments) == 100
